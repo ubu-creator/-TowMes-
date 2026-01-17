@@ -3,178 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azraq2 - TowMes©™ System 2026</title>
+    <title>Azraq2 - Red & Black Dark Mode</title>
     <style>
+        /* إعدادات الألوان - ناصر الكود 2026 */
         :root {
-            --primary-red: #b71c1c; /* أحمر عميق ومقفول */
-            --dark-red: #7f0000;
-            --white: #ffffff;
-            --shadow: rgba(0, 0, 0, 0.4);
+            --bg-deep-red: #4d0000;      /* خلفية الصفحة: أحمر مغلوق جداً */
+            --button-black: #0a0a0a;     /* الأزرار: أسود فخم */
+            --accent-red: #ff0000;       /* لمسة التمرير */
+            --text-white: #ffffff;       /* النصوص */
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f0f0;
-            /* الهيكل العظمي للمبنى: ضمان مساحة كافية للتمرير */
-            min-height: 3000px; 
+            background-color: var(--bg-deep-red); /* الصفحة حمراء مغلوقة */
+            min-height: 5000px; /* لضمان التمرير الطويل */
+            overflow-x: hidden;
         }
 
-        /* حاوية التحكم الاستراتيجية */
-        .azraq2-control-panel {
+        /* لوحة التحكم الثابتة */
+        .towmes-panel {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 40px;
+            right: 40px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            border-radius: 20px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 12px;
+            z-index: 10000;
         }
 
-        /* تصميم الأزرار الحديثة */
+        /* الأزرار: سوداء بخلفية حمراء مغلوقة للمحيط */
         .scroll-btn {
-            background-color: var(--primary-red);
-            color: var(--white);
-            border: 2px solid var(--dark-red);
-            padding: 15px 25px;
-            border-radius: 15px;
+            background-color: var(--button-black);
+            color: var(--text-white);
+            border: 1px solid var(--accent-red);
+            padding: 18px 25px;
+            border-radius: 5px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 10px 20px var(--shadow);
-            min-width: 140px;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            min-width: 130px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
         }
 
         .scroll-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            background-color: #ff0000;
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.4);
+            background-color: var(--accent-red);
+            border-color: var(--text-white);
+            transform: scale(1.05);
         }
 
-        .scroll-btn span.icon {
-            font-size: 22px;
-            font-weight: bold;
+        .scroll-btn span {
+            font-size: 14px;
+            letter-spacing: 2px;
         }
 
-        .scroll-btn span.label {
-            font-size: 13px;
-            margin-top: 5px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* العلامة المائية TowMes©™ */
+        /* الواتر مارك TowMes©™ */
         .watermark {
             text-align: center;
             font-size: 11px;
-            color: var(--dark-red);
+            color: var(--text-white);
             font-weight: bold;
-            text-transform: uppercase;
+            margin-top: 8px;
             letter-spacing: 2px;
-            margin-top: 5px;
-            opacity: 0.8;
-        }
-
-        /* تذييل الصفحة */
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            padding: 5px;
-            background: rgba(255,255,255,0.8);
-            font-size: 12px;
-            color: #333;
-        }
-
-        /* محتوى وهمي للتجربة */
-        .section-demo {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #555;
-            border-bottom: 2px dashed #ccc;
+            opacity: 0.6;
+            font-family: sans-serif;
         }
     </style>
 </head>
 <body>
 
-    <div class="section-demo">قسم البداية - ناصر الكود</div>
-    <div class="section-demo" style="background:#e0e0e0;">المنطقة الوسطى - توازن إحصائي</div>
-    <div class="section-demo">قسم النهاية - Yimieh important lesson 1</div>
-
-    <div class="azraq2-control-panel">
-        <button class="scroll-btn" onclick="azraqScroll('up')">
-            <span class="icon">▲</span>
-            <span class="label">صعود | SCROLL UP</span>
+    <div class="towmes-panel">
+        <button class="scroll-btn" onclick="azraqSmoothScroll('up')">
+            <span>UP</span>
+            <span>صعود</span>
         </button>
 
-        <button class="scroll-btn" onclick="azraqScroll('down')">
-            <span class="icon">▼</span>
-            <span class="label">نزول | SCROLL DOWN</span>
+        <button class="scroll-btn" onclick="azraqSmoothScroll('down')">
+            <span>DOWN</span>
+            <span>نزول</span>
         </button>
 
         <div class="watermark">TowMes©™</div>
     </div>
 
-    <footer>Developed by TowMes©™</footer>
-
     <script>
         /**
-         * System: Azraq2 Logic
-         * Strategy: Static Balance & Smooth Ratio
+         * Azraq2 Core Engine
          * Developed by TowMes©™
+         * Movement: Strategic Slow Balance
          */
-        
-        function azraqScroll(direction) {
-            const startY = window.pageYOffset;
-            const viewportHeight = window.innerHeight;
-            
-            // تحديد الوجهة بناءً على الاتجاه بمقدار شاشة كاملة
-            const distance = direction === 'up' ? -viewportHeight : viewportHeight;
-            const targetY = startY + distance;
-            
-            const duration = 2500; // معدل بطيء جداً (2.5 ثانية) لراحة العين
+        function azraqSmoothScroll(direction) {
+            const start = window.pageYOffset;
+            const distance = direction === 'up' ? -window.innerHeight : window.innerHeight;
+            const duration = 3000; // معدل بطيء جداً وانسيابي (3 ثوانٍ)
             let startTimestamp = null;
 
             function step(timestamp) {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = timestamp - startTimestamp;
                 
-                // معادلة التوازن الحركي لضمان السلاسة المطلقة
+                // معادلة التوازن الإحصائي للحركة
                 const progressRatio = Math.min(progress / duration, 1);
-                
-                // Ease In-Out Cubic Function
                 const ease = progressRatio < 0.5 
-                    ? 4 * progressRatio * progressRatio * progressRatio 
-                    : 1 - Math.pow(-2 * progressRatio + 2, 3) / 2;
+                    ? 2 * progressRatio * progressRatio 
+                    : 1 - Math.pow(-2 * progressRatio + 2, 2) / 2;
 
-                window.scrollTo(0, startY + (distance * ease));
+                window.scrollTo(0, start + (distance * ease));
 
                 if (progress < duration) {
                     window.requestAnimationFrame(step);
                 }
             }
-
             window.requestAnimationFrame(step);
         }
-
-        // تسجيل الدخول للنظام
-        console.log("Azraq2 System Active - Strategic Analysis Initiated.");
-        console.log("Memory: Yimieh important lesson 1.");
     </script>
 </body>
 </html>
