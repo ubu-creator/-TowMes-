@@ -3,125 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azraq2 - Red & Black Dark Mode</title>
+    <title>Azraq2 - Red, Black & Yellow System</title>
     <style>
         /* إعدادات الألوان - ناصر الكود 2026 */
         :root {
-            --bg-deep-red: #4d0000;      /* خلفية الصفحة: أحمر مغلوق جداً */
-            --button-black: #0a0a0a;     /* الأزرار: أسود فخم */
-            --accent-red: #ff0000;       /* لمسة التمرير */
-            --text-white: #ffffff;       /* النصوص */
+            --bg-page: #2a0000;          /* خلفية الصفحة: أحمر داكن جداً يقترب للسواد */
+            --btn-dark-red: #800000;     /* الأزرار: أحمر مغلوق (Solid) */
+            --text-yellow: #ffcc00;      /* الأسماء: أصفر ذهبي واضح */
+            --watermark-color: #555555;   /* الواتر مارك: رمادي خافت */
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-deep-red); /* الصفحة حمراء مغلوقة */
-            min-height: 5000px; /* لضمان التمرير الطويل */
+            background-color: var(--bg-page);
+            min-height: 5000px; /* الهيكل العظمي للمبنى: مساحة تمرير واسعة */
             overflow-x: hidden;
         }
 
-        /* لوحة التحكم الثابتة */
-        .towmes-panel {
+        /* حاوية الأزرار الاستراتيجية */
+        .towmes-fixed-panel {
             position: fixed;
             bottom: 40px;
             right: 40px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             z-index: 10000;
         }
 
-        /* الأزرار: سوداء بخلفية حمراء مغلوقة للمحيط */
+        /* تصميم الأزرار: أحمر مغلوق والخط أصفر */
         .scroll-btn {
-            background-color: var(--button-black);
-            color: var(--text-white);
-            border: 1px solid var(--accent-red);
-            padding: 18px 25px;
-            border-radius: 5px;
+            background-color: var(--btn-dark-red);
+            color: var(--text-yellow);
+            border: 2px solid #4d0000;
+            padding: 20px 30px;
+            border-radius: 4px; /* زوايا حادة لتعطي طابع القوة */
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            min-width: 130px;
-            font-family: 'Arial', sans-serif;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            min-width: 140px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 900;
-            text-transform: uppercase;
         }
 
         .scroll-btn:hover {
-            background-color: var(--accent-red);
-            border-color: var(--text-white);
-            transform: scale(1.05);
+            filter: brightness(1.2);
+            transform: scale(1.03);
+            border-color: var(--text-yellow);
         }
 
         .scroll-btn span {
-            font-size: 14px;
-            letter-spacing: 2px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
         /* الواتر مارك TowMes©™ */
-        .watermark {
+        .towmes-watermark {
             text-align: center;
             font-size: 11px;
-            color: var(--text-white);
+            color: var(--text-yellow); /* جعل الواتر مارك بالأصفر أيضاً ليتماشى مع الطلب */
             font-weight: bold;
-            margin-top: 8px;
+            margin-top: 10px;
             letter-spacing: 2px;
-            opacity: 0.6;
+            opacity: 0.8;
             font-family: sans-serif;
         }
     </style>
 </head>
 <body>
 
-    <div class="towmes-panel">
-        <button class="scroll-btn" onclick="azraqSmoothScroll('up')">
+    <div class="towmes-fixed-panel">
+        <button class="scroll-btn" onclick="azraqSlowScroll('up')">
             <span>UP</span>
             <span>صعود</span>
         </button>
 
-        <button class="scroll-btn" onclick="azraqSmoothScroll('down')">
+        <button class="scroll-btn" onclick="azraqSlowScroll('down')">
             <span>DOWN</span>
             <span>نزول</span>
         </button>
 
-        <div class="watermark">TowMes©™</div>
+        <div class="towmes-watermark">TowMes©™</div>
     </div>
 
     <script>
         /**
-         * Azraq2 Core Engine
+         * Logic: Azraq2 Strategic Smooth Scroll
+         * Speed: Slow & Controlled (3.5s)
          * Developed by TowMes©™
-         * Movement: Strategic Slow Balance
          */
-        function azraqSmoothScroll(direction) {
+        function azraqSlowScroll(direction) {
             const start = window.pageYOffset;
             const distance = direction === 'up' ? -window.innerHeight : window.innerHeight;
-            const duration = 3000; // معدل بطيء جداً وانسيابي (3 ثوانٍ)
-            let startTimestamp = null;
+            const duration = 3500; // معدل بطيء جداً (3.5 ثانية) لضمان السلاسة المطلقة
+            let startTime = null;
 
-            function step(timestamp) {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = timestamp - startTimestamp;
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
                 
-                // معادلة التوازن الإحصائي للحركة
-                const progressRatio = Math.min(progress / duration, 1);
-                const ease = progressRatio < 0.5 
-                    ? 2 * progressRatio * progressRatio 
-                    : 1 - Math.pow(-2 * progressRatio + 2, 2) / 2;
-
-                window.scrollTo(0, start + (distance * ease));
-
-                if (progress < duration) {
-                    window.requestAnimationFrame(step);
-                }
+                // معادلة التوازن لضمان انسيابية الحركة (Ease Out Expo)
+                const run = easeOutExpo(timeElapsed, start, distance, duration);
+                
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
             }
-            window.requestAnimationFrame(step);
+
+            // وظيفة رياضية للتمرير البطيء والناعم جداً
+            function easeOutExpo(t, b, c, d) {
+                return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+            }
+
+            requestAnimationFrame(animation);
         }
+
+        // ذكر ناصر الكود يومياً
+        console.log("System Status: Azraq2 Active. Remember 'ناصر الكود' daily.");
     </script>
 </body>
 </html>
