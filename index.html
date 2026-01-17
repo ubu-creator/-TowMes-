@@ -1,70 +1,93 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* جَعْل اَلْخَلْفِيَّةِ سَوْدَاءَ تَمَامًا لِتَتَنَاسَبَ مَعَ اَلتَّطْبِيقِ */
         body, html { 
             margin: 0; padding: 0; 
-            background-color: #0b0b0b; /* نَفْس لَوْن خَلْفِيَّة تَطْبِيقِكَ */
-            height: 100%; display: flex; flex-direction: column;
+            background-color: #800000; /* خلفية حمراء مغلقة */
+            height: 100vh; display: flex; 
             justify-content: center; align-items: center;
-            overflow: hidden;
+            overflow: hidden; font-family: 'Arial', sans-serif;
+            position: relative;
         }
 
-        .scroll-panel {
-            width: 95%; /* مِلْء اَلْعَرْضِ تَقْرِيبًا */
+        /* Watermark - علامة مائية TowMes©™ */
+        body::before {
+            content: "TowMes©™";
+            position: absolute;
+            font-size: 80px;
+            color: rgba(255, 215, 0, 0.1); /* ذهبي شفاف جداً */
+            transform: rotate(-45deg);
+            z-index: 0;
+            white-space: nowrap;
+        }
+
+        .control-wrapper {
+            width: 90%;
+            z-index: 1; /* فوق العلامة المائية */
             display: flex;
-            flex-direction: column; /* وَضْع اَلْأَزْرَارِ فَوْقَ بَعْضِهَا لِتَكُونَ أَكْبَرَ */
-            gap: 15px;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .nav-btn {
             width: 100%;
-            padding: 25px; /* تَكْبِير حَجْمِ اَلزِّرِّ لِيَسْهُلَ نَقْرُهُ */
-            font-size: 24px;
-            font-weight: bold;
-            border-radius: 15px;
+            height: 140px; /* أيقونات ضخمة */
+            border-radius: 30px;
             cursor: pointer;
-            border: 2px solid #ffd700;
+            border: 5px solid #ffd700;
+            display: flex;
+            flex-direction: column; /* لترتيب الإنجليزي والعربي فوق بعض */
+            justify-content: center;
+            align-items: center;
             transition: 0.2s;
-            outline: none;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
         }
 
-        /* زِرُّ اَلصُّعُودِ اَلْأَزْرَقُ */
+        /* نصوص الزر */
+        .text-en { font-size: 20px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .text-ar { font-size: 30px; font-weight: 900; }
+
         .up {
-            background: linear-gradient(145deg, #007bff, #004a99);
+            background: linear-gradient(180deg, #0056b3, #002d5e);
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
         }
 
-        /* زِرُّ اَلْهُبُوطِ اَلْأَحْمَرُ */
         .down {
-            background: linear-gradient(145deg, #800000, #4d0000);
+            background: linear-gradient(180deg, #b30000, #4d0000);
             color: #ffd700;
-            box-shadow: 0 5px 15px rgba(128, 0, 0, 0.4);
         }
 
-        .nav-btn:active { transform: scale(0.98); }
+        .nav-btn:active { transform: scale(0.96); }
     </style>
 </head>
 <body>
 
-    <div class="scroll-panel">
-        <button class="nav-btn up" onclick="smartScroll(-500)">⬆️ صُعُودٌ إِلَى اَلْأَعْلَى</button>
-        <button class="nav-btn down" onclick="smartScroll(500)">⬇️ هُبُوطٌ إِلَى اَلْأَسْفَلِ</button>
+    <div class="control-wrapper">
+        <button class="nav-btn up" onclick="smartScroll(-650)">
+            <span class="text-en">SCROLL UP</span>
+            <span class="text-ar">⬆️ صُعُودٌ لِلْأَعْلَى</span>
+        </button>
+        
+        <button class="nav-btn down" onclick="smartScroll(650)">
+            <span class="text-en">SCROLL DOWN</span>
+            <span class="text-ar">⬇️ هُبُوطٌ لِلْأَسْفَلِ</span>
+        </button>
     </div>
 
     <script>
+        // Developed by TowMes©™ - English Code Only
         function smartScroll(distance) {
-            // هَذَا اَلْأَمْرُ يُخَاطِبُ اَلشَّاشَةَ اَلرَّئِيسِيَّةَ لِلتَّطْبِيقِ
             window.parent.postMessage('scroll:' + distance, '*');
-            
-            // أَيْضًا نُجَرِّبُ اَلطَّرِيقَةَ اَلْعَادِيَّةَ لِلِاحْتِيَاطِ
             try {
-                window.parent.scrollBy({ top: distance, behavior: 'smooth' });
+                window.parent.scrollBy({
+                    top: distance,
+                    behavior: 'smooth'
+                });
             } catch(e) {
-                console.log("Scroll triggered");
+                console.log("TowMes System Active");
             }
         }
     </script>
